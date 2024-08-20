@@ -1,110 +1,142 @@
-#Activer le package shinydashboard
-library(shiny)
-library(shinydashboard)
-library(rhandsontable)
-library(plotly)
-library(DT)
+#--- Activer les librairies nécessaires ---#
+library(shiny) # Transforme code R en application
+library(shinydashboard) # Thématique de mise en page
+library(DT) #Tableaux
+library(rhandsontable) #Tableaux
+library(plotly) #Graphiques
 
-#Définir l'interface de l'utilisateur
+
+#--- Définir l'interface de l'utilisateur ---#
 ui <- dashboardPage(
   
 #--- Définir le titre de la page web
 dashboardHeader(title = "Laboratoire 1"),
   
-#--- Définir les différents exercices du laboratoires
+#--- Définir la liste déroulante sur le côté de la page
 dashboardSidebar(
-    # Sidebar menu with items for each exercise
-    sidebarMenu(
-      id = "tabs",
-      menuItem("Exercice 1.1", tabName = "exercise_1_1"),
-      menuItem("Exercice 1.2", tabName = "exercise_1_2"),
-      menuItem("Exercice 1.3", tabName = "exercise_1_3"),
-      menuItem("Exercice B", tabName = "exercise_b"),
-      menuItem("Exercice C", tabName = "exercise_c"),
-      menuItem("Exercice D", tabName = "exercise_d")
-    )
-),
+        sidebarMenu(
+          #Définir les exercices du laboratoire dans la liste déroulante
+          id = "tabs",
+          menuItem("Exercice 1.1", tabName = "exercice_1_1"),
+          menuItem("Exercice 1.2", tabName = "exercice_1_2"),
+          menuItem("Exercice 1.3", tabName = "exercice_1_3"),
+          menuItem("Exercice B", tabName = "exercice_b"),
+          menuItem("Exercice C", tabName = "exercice_c"),
+          menuItem("Exercice D", tabName = "exercice_d")
+          )
+        ),
   
-#--- Définir le contenu de la page web
+#--- Définir le contenu principal de la page web
 dashboardBody(
     #Préciser la taille des marges gauche et droite
     style = "margin-left: 40px; margin-right: 40px;",
     tabItems(
       
+      
 #---------------------#
 ##### Exercice 1.1 ####
 #---------------------#
 #--- Nom de l'objet de la page dans R
-tabItem(tabName = "exercise_1_1",  
-
+tabItem(tabName = "exercice_1_1",  
+        
+#--- Ajouter une section pour intégrer des boîtes et du texte
 fluidRow(
-#--- titre de la première section
+  #titre de l'exercice
   titlePanel("Exercice 1.1: Le rétablissement de la baleine bleue"),
-  #Taille du texte, justifier et ajouter de l'espace en dessous
-  style = "text-align: justify; font-size: 16px; margin-bottom: 40px;",
+  #Spéficier la taille du texte, justifier et ajouter de l'espace en dessous
+  style = "text-align: justify; font-size: 16px; margin-bottom: 10px;",
   
-#--- Spécification particulière pour l'Exercice
+#--- Ajouter une boîte pour une spécification particulière
   box(width = 12, #Définir la largeur de la boîte pour l'encadré pour le texte (12 correspond à la largeur de la page)
-  #Ajouter la mise en contexte
+  #Ajouter le texte; HTML(<b>...</b>) est utilisé pour mettre le texte en gras
   p(HTML("<b>***Exercice à la main (papier, crayon et calculatrice)***</b>"))
   ),
 
-#--- Mise en contexte
-  box(width = 12, #Définir la taille de l'a boîte pour l'encadré pour le texte
-                    #Ajouter la mise en contexte
-                    p("Cet exercice est basé sur l’exemple de la baleine bleue exposé à la section 1.4.3 du livre Applied Population Ecology (APE). La dynamique des populations de baleine bleue et les prédictions de niveau de récolte ont été faits à partir de modèles exponentiels. Le taux de croissance de la population (R) durant la période représentée sur la figure 1.9 était de 0.82, c’est à dire que la population déclinait de 18% par an. Le taux de fécondité de la baleine bleue a été estimé entre 0.06 et 0.14 et la mortalité naturelle autour de 0.04. En absence de récolte, le taux de croissance de la population devrait être entre 1.02 et 1.10. Nous voulons estimer le temps nécessaire pour que la population de baleine bleue se rétablisse à son niveau de 1930, soit à un effectif de 50 000. On suppose que la taille de la population est de 10 000 en 1963."),
-      p(uiOutput("whale"))
+#--- Ajouter une boîte avec la mise en contexte de l'exercice
+  box(width = 12,
+    #Ajouter le texte avec un paragraphe
+    p("Cet exercice est basé sur l’exemple de la baleine bleue exposé à la section 1.4.3 du livre Applied Population Ecology (APE). La dynamique des populations de baleine bleue et les prédictions de niveau de récolte ont été faits à partir de modèles exponentiels. Le taux de croissance de la population (R) durant la période représentée sur la figure 1.9 était de 0.82, c’est à dire que la population déclinait de 18% par an. Le taux de fécondité de la baleine bleue a été estimé entre 0.06 et 0.14 et la mortalité naturelle autour de 0.04. En absence de récolte, le taux de croissance de la population devrait être entre 1.02 et 1.10. Nous voulons estimer le temps nécessaire pour que la population de baleine bleue se rétablisse à son niveau de 1930, soit à un effectif de 50 000. On suppose que la taille de la population est de 10 000 en 1963.")
+    )
+),
+
+fluidRow(
+  style = "text-align: center; font-size: 16px; margin-bottom: 20px;",
+  tags$figure(
+    class = "centerFigure",
+    tags$img(
+    src = "whale.jpg",
+    width = 500)
+    )
+  ),
+
+#--- Ajouter une boîte pour une spécification particulière
+fluidRow(
+  #Spéficier la taille du texte, justifier et ajouter de l'espace en dessous
+  style = "text-align: justify; font-size: 16px; margin-bottom: 40px;",
+  box(width = 12,
+      p(HTML("<b>Écrivez la formule utilisée et calculez le nombre d’années nécessaires au rétablissement de la population.</b><br><br>ASTUCE : Utilisez la formule pour calculer le temps de doublement de la population."))
       ),
 
-#--- Spécifications particulières
-  box(width = 12, #Définir la taille de l'a boîte pour l'encadré pour le texte
-                        #Ajouter la mise en contexte
-                        p(HTML("<b>Écrivez la formule utilisée et calculez le nombre d’années nécessaires au rétablissement de la population.</b><br><br>ASTUCE : Utilisez la formule pour calculer le temps de doublement de la population."))
-                ),
-
-#--- Simulations à faire
-  box(width = 12, #Définir la taille de l'a boîte pour l'encadré pour le texte
-                    #Ajouter la mise en contexte
-                    p(HTML("<ul style='list-style-type: lower-alpha;'>
+#--- Ajouter une liste ordonnée ("bullet point") avec des lettres
+  box(width = 12,
+      #En langage HTML, style='list-style-type: lower-alpha;' signifie une liste ordonnée d'item avec des lettres en minuscules
+  p(HTML("<ul style='list-style-type: lower-alpha;'>
               <li>si son taux de croissance est 1.10</li>
               <li>si son taux de croissance est 1.02</li>
             </ul>"))
               )
             )
-          ),
+          ), # Fermer le tabItem exercice_1_1
     
 
 #---------------------#
 ##### Exercice 1.2 ####
-#---------------------#
-tabItem(tabName = "exercise_1_2",  #Nom de l'objet de la page dans R
+#---------------------# 
+#--- Nom de l'objet de la page dans R
+tabItem(tabName = "exercice_1_2",
               
-#--- Titre et mise en contexte
+#--- Ajouter une section pour intégrer des boîtes et du texte
 fluidRow(
- #Définir le titre de la première section
+ #Définir le titre de l'exercice
  titlePanel("Exercice 1.2: La population humaine de 1800 à 1995"),
- #Taille du texte, justifier et ajouter de l'espace en dessous
+ #Spécifier la taille du texte, justifier et ajouter de l'espace en dessous
  style = "text-align: justify; font-size: 16px; margin-bottom: 40px;", 
+ 
+ #--- Ajouter une boîte pour la mise en contexte
  box(width = 12, #Définir la taille de l'a boîte pour l'encadré pour le texte
-                    #Ajouter la mise en contexte
-                    p("Dans cet exercice, nous allons travailler sur les données de croissance de la population humaine utilisées dans la section 1.4.1 (APE). Pour commencer cet exercice, cliquez sur le bouton «Heure départ» afin de débuter, la durée de l'exercice vous sera utile plus loin au cours de l'exercice."),
+   p("Dans cet exercice, nous allons travailler sur les données de croissance de la population humaine utilisées dans la section 1.4.1 (APE). Pour commencer cet exercice, cliquez sur le bouton «Heure départ» afin de débuter, la durée de l'exercice vous sera utile plus loin au cours de l'exercice."),
+   #Ajouter un bouton notant l'heure de départ de l'exercice
      p(actionButton("Timedepart", "Heure départ"),
-                         textOutput("depart"))
+                         textOutput("depart")) #voir code dans server.R
                 )
               ),
 
+  #Ajouter image de ville
+  fluidRow(
+    style = "text-align: center; font-size: 16px; margin-bottom: 20px;",
+    tags$figure(
+      class = "centerFigure",
+      tags$img(
+      src = "city.jpg",
+      width = 400)
+    )
+  ),
+
 #--- Étape 1              
   fluidRow(
-  #Taille du texte, justifier et ajouter de l'espace en dessous
   style = "text-align: justify; font-size: 16px; margin-bottom: 40px;", 
-    box(width = 12, #Définir la taille de l'a boîte pour l'encadré pour le texte
+    box(width = 12,
     #Ajouter la mise en contexte
-    p(HTML("<b>Étape 1</b>: Calculez le taux de croissance de la population humaine pour chaque intervalle de temps dans le tableau 1.3. Puisqu’il est important de convertir ces taux de croissance en taux de croissance annuels pour pouvoir les comparer les uns aux autres, notez que le nombre d’années est différent d’un intervalle de temps à un autre: 50 ans au début, 20 ans ensuite et 5 ans pour finir. Utilisez la méthode décrite à la section 1.4.1 (APE) pour calculer le taux de croissance annuel pour la période 1800 à 1850, 1850 à 1870, et ainsi de suite jusqu’à la période 1990 à 1995. <b>Copiez les valeurs du tableau 1.3 suivant dans Excel et complétez le tableau (dans le tableau, le premier taux de croissance est calculé en exemple).</b>")),
+    p(HTML("<b>Étape 1</b>: Calculez le taux de croissance de la population humaine pour chaque intervalle de temps dans le tableau 1.3. Puisqu’il est important de convertir ces taux de croissance en taux de croissance annuels pour pouvoir les comparer les uns aux autres, notez que le nombre d’années est différent d’un intervalle de temps à un autre: 50 ans au début, 20 ans ensuite et 5 ans pour finir. Utilisez la méthode décrite à la section 1.4.1 (APE) pour calculer le taux de croissance annuel pour la période 1800 à 1850, 1850 à 1870, et ainsi de suite jusqu’à la période 1990 à 1995. <b>Copiez les valeurs du tableau 1.3 suivant dans collez dans Excel et complétez le tableau (dans le tableau, le premier taux de croissance est calculé en exemple). Si les valeurs se retrouvent toutes sur une même ligne, veuillez coller le tableau dans excel en utilisant les touches (ctrl + shift + v)  pour coller en tant que valeurs.</b>")),
+    #Mention particulière en italique
     p(HTML("<i>*ASTUCE: Pour élever un nombre à une puissance, la fonction «excel» est la suivante:</i>")),
-    p(HTML("<i>=puissance (nombre; puissance)</i>")),
+    p(HTML("<i>=puissance(nombre; puissance)</i>")),
+    p("ou"),
+    p(HTML("<i>=POWER(nombre; puissance)</i>")),
     p(HTML("<i>*Selon votre version d'Excel vérifier si les chiffres sont considérés avec des «.» ou des «,». Vous pouvez les changer rapidement habituellement avec ctrl + h</i>"))
        )
       ),
+
 
  #--- Ajouter le tableau 1.3 du document
  fluidRow(
@@ -117,38 +149,44 @@ fluidRow(
 fluidRow(
   style = "text-align: justify; font-size: 16px; margin-bottom: 40px;", 
   box(width = 12,
-      p(HTML("<b>Étape 2</b>: Tracez le graphique du taux de croissance annuel en fonction de l’année et commentez la croissance de la population humaine au cours des 2 derniers siècles. Vous pouvez simplement coller vos valeurs calculées dans la colonne taux de croissance annuel pour obtenir le graphique."))
-      )
-    ),
-
-fluidRow(
-  style = "text-align: justify; font-size: 16px; margin-bottom: 40px;", 
-      column(width=5,  rHandsontableOutput("editableTable_1_3")),
-      column(width=5,  plotOutput("plot_sub_table_1_3"))
-      ),
-      
-#--- Étape 3
-fluidRow(
-  style = "text-align: justify; font-size: 16px; margin-bottom: 40px;", 
-  box(width = 12,
-      p(HTML("<b>Étape 3</b>: Il est important de connaître la différence entre croissance relative et absolue. En effet, même si le taux de croissance annuel (une mesure de croissance relative) décline, le nombre d’individus ajoutés à la population chaque année (une mesure de croissance absolue) peut augmenter.<b> Le nombre d’individus ajoutés à la population dans une année est égal à N x (R-1)</b>, où N est la taille de la population et R est le taux de croissance annuel. Par exemple, en 1850 on a 1.13 milliard x 0.00434 = 4.9 million d’individus qui ont été ajoutés à la population. <i>(De manière stricte, ce calcul n’est pas correct puisque les deux nombres utilisés réfèrent à des temps différents: 1.00434 est la croissance moyenne de 1800 à 1850 alors que 1.13 milliard est la taille de la population en 1850. Cependant, pour cet exercice, on considérera que c’est une approximation correcte)</i>.")),
-        p("Calculez le nombre d’individus ajoutés à la population humaine chaque année pour 1975, 1985 et 1995 en utilisant le tableau 1.4 ci-dessous. Comparez le changement du taux de croissance annuel avec l’augmentation absolue de la taille de la population par année.")
+      p(HTML("<b>Étape 2</b>: Tracez le graphique du taux de croissance annuel en fonction de l’année et commentez la croissance de la population humaine au cours des 2 derniers siècles. <b>Vous pouvez simplement copier et coller vos valeurs calculées dans Excel dans la colonne taux de croissance annuel pour obtenir le graphique.</b>"))
       )
     ),
 
 fluidRow(
   style = "text-align: justify; font-size: 16px; margin-bottom: 40px;",
-  titlePanel(h4("Tableau 1.4: Calculer le nombre d’individus qui s’ajoutent à la population humaine")),
-   rHandsontableOutput("editableTable_1_4")
+  #Saisie des données dans le tableau
+      column(width=4,  rHandsontableOutput("editableTable_1_3")),
+  #Visualisation des données en graphique
+      column(width=7,  plotOutput("plot_sub_table_1_3"))
+      ),
+
+
+#--- Étape 3
+fluidRow(
+  style = "text-align: justify; font-size: 16px; margin-bottom: 40px;", 
+  box(width = 12,
+      p(HTML("<b>Étape 3</b>: Il est important de connaître la différence entre croissance relative et absolue. En effet, même si le taux de croissance annuel (une mesure de croissance relative) décline, le nombre d’individus ajoutés à la population chaque année (une mesure de croissance absolue) peut augmenter.<b> Le nombre d’individus ajoutés à la population dans une année est égal à N x (R-1)</b>, où N est la taille de la population et R est le taux de croissance annuel. Par exemple, en 1850 on a 1.13 milliard x 0.00434 = 4.9 million d’individus qui ont été ajoutés à la population. <i>(De manière stricte, ce calcul n’est pas correct puisque les deux nombres utilisés réfèrent à des temps différents: 1.00434 est la croissance moyenne de 1800 à 1850 alors que 1.13 milliard est la taille de la population en 1850. Cependant, pour cet exercice, on considérera que c’est une approximation correcte)</i>.")),
+        p("Calculez le nombre d’individus ajoutés à la population humaine chaque année pour 1975, 1985 et 1995 en copiant et collant le tableau 1.4 ci-dessous dans Excel. Comparez le changement du taux de croissance annuel avec l’augmentation absolue de la taille de la population par année.")
+      )
     ),
+
+ #--- Ajouter le tableau 1.4
+fluidRow(
+  style = "text-align: justify; font-size: 16px; margin-bottom: 40px;", 
+  titlePanel(h4("Tableau 1.4: Calculer le nombre d’individus qui s’ajoutent à la population humaine")),
+  tableOutput("table_1_4")
+),
 
 #--- Étape 4
 fluidRow(
   style = "text-align: justify; font-size: 16px; margin-bottom: 40px;",
   box(width=12,
   p(HTML("<b>Étape 4</b>: En utilisant le nombre d’individus ajoutés à la population humaine en 1995, calculez le nombre approximatif d’individus ajoutés à la population")),
+  #Ajouter bouton pour déterminer l'heure de fin de l'exercice
   p(actionButton("Timeend", "Heure fin"),
     textOutput("end")),
+  #Ajouter liste ordonnée avec lettre en minuscule
   p(HTML("<ul style='list-style-type: lower-alpha;'>
               <li>par jour</li>
               <li>par heure</li>
@@ -159,35 +197,40 @@ fluidRow(
   )
 ),      
 
+
+
 #--------------------#
 #### Exercice 1.3 ####
 #--------------------#
-tabItem(tabName = "exercise_1_3",  #Nom de l'objet de la page dans R
- #--- Titre et mise en contexte
- fluidRow(
- #Définir le titre de la première section
- titlePanel("Exercice 1.3 (optionnel): La population humaine de 1995 à 2035"),
- #Taille du texte, justifier et ajouter de l'espace en dessous
- style = "text-align: justify; font-size: 16px; margin-bottom: 40px;", 
-  box(width = 12, #Définir la taille de l'a boîte pour l'encadré pour le texte
-   #Ajouter la mise en contexte
-   p("Dans cet exercice vous allez examiner un scénario plutôt optimiste de ralentissement et de stabilisation de la population humaine. Spécifiquement, vous allez calculer la taille de la population en 2035, en supposant que le taux de croissance ait atteint d’ici là 1.00 (pas de croissance). Supposez que (i) le taux de fécondité en 1995 est de 0.0273, (ii) le taux de survie ne changera pas dans le futur et que (iii) dans les 40 années suivant 1995, la fécondité va décroître de sorte que le taux de croissance annuel en 2035 atteigne R(2035) = 1.0."),
+#--- Nom de l'objet de la page dans R
+tabItem(tabName = "exercice_1_3",  
+        
+#--- Titre et mise en contexte
+fluidRow(
+titlePanel("Exercice 1.3 (optionnel): La population humaine de 1995 à 2035"),
+style = "text-align: justify; font-size: 16px; margin-bottom: 40px;", 
+
+#--- Ajouter le texte en différents paragraphes
+  box(width = 12, 
+   p("Dans cet exercice vous allez examiner un scénario plutôt optimiste de ralentissement et de stabilisation de la population humaine. Spécifiquement, vous allez calculer la taille de la population en 2035, en supposant que le taux de croissance ait atteint d’ici là 1.00 (pas de croissance). Supposez que (i) le taux de fécondité en 1995 est de 0.0273, (ii) le taux de survie ne changera pas dans le futur et que (iii) dans les 40 années suivant 1995, la fécondité va décroître de sorte que le taux de croissance annuel en 2035 atteigne R(2035) = 1.0. Pour effectuez les calculs, copiez et collez les valeurs du tableau 1.5 dans excel "),
+   p(HTML("<b>Pour effectuez vos calculs, copiez et collez les valeurs du tableau 1.5 dans Excel. Si les valeurs se retrouvent toutes sur une même ligne, veuillez coller le tableau dans excel en utilisant les touches (ctrl + shift + v) pour coller en tant que valeurs.</b>")),
    p(HTML("<b>Étape 1</b>: En utilisant le R (1995) obtenu à l’exercice précédent, calculez le taux de survie annuel pour 1995 et estimez la décroissance annuelle en fécondité nécessaire pour atteindre R(2035) = 1.0. Supposez que la décroissance est linéaire, c’est à dire que la fécondité décroît d’une quantité équivalente chaque année.")),
-   p(HTML("<b>Étape 2</b>: Calculez la fécondité et le taux de croissance annuel pour les années 2005, 2015, 2025 et 2035 et notez-les dans le tableau 1.5 ci-dessous. Notez que le taux de survie est stable.")),
-   p(HTML("<b>Étape 3</b>: Calculez les taux de croissance sur 10 ans pour les périodes 1995-2005, 2005-2015, 2015-2025, et 2025-2035. Notez ces résultats dans le tableau 1.5 (entrez le taux de croissance pour 10 ans pour la période 1995-2005 dans la ligne pour 1995, et ainsi de suite).")),
+   p(HTML("<b>Étape 2</b>: Calculez la fécondité et le taux de croissance annuel pour les années 2005, 2015, 2025 et 2035 et notez-les dans le tableau. Notez que le taux de survie est stable.")),
+   p(HTML("<b>Étape 3</b>: Calculez les taux de croissance sur 10 ans pour les périodes 1995-2005, 2005-2015, 2015-2025, et 2025-2035. Notez ces résultats dans le tableau (entrez le taux de croissance pour 10 ans pour la période 1995-2005 dans la ligne pour 1995, et ainsi de suite).")),
    p(HTML("<i>*ASTUCE: Utilisez le taux de croissance annuel du début de la décennie (ex: R(1995) pour la décennie 1995-2005) pour calculer le taux de croissance sur 10 ans.</i>")),
    p(HTML("<b>Étape 4</b>: Estimez la taille de la population à la fin de chaque période de 10 ans."))
   )
  ),
- 
- fluidRow(
-   style = "text-align: justify; font-size: 16px; margin-bottom: 40px;",
-   titlePanel(h4("Tableau 1.5: Projection de la croissance de la population humaine")),
-   rHandsontableOutput("editableTable_1_5")
+
+#--- Ajouter le tableau 1.5
+fluidRow(
+  style = "text-align: justify; font-size: 16px; margin-bottom: 40px;", 
+  titlePanel(h4("Tableau 1.5: Projection de la croissance de la population humaine")),
+  tableOutput("table_1_5")
 ),
  
+  #--- Ajouter un paragraphe avec une question
  fluidRow(
-   #Taille du texte, justifier et ajouter de l'espace en dessous
    style = "text-align: justify; font-size: 16px; margin-bottom: 40px;",
    box(width = 12,
        p("De combien la population a-t-elle augmenté en 40 ans alors que la fécondité diminuait? Si la fécondité avait mis 80 ans au lieu de 40 ans pour diminuer au même niveau, est-ce que la taille finale de la population aurait été plus grande ou plus petite?"))
@@ -198,19 +241,35 @@ tabItem(tabName = "exercise_1_3",  #Nom de l'objet de la page dans R
 #-------------------#
 ##### Exercice B ####
 #-------------------#
-tabItem(tabName = "exercise_b",  #Nom de l'objet de la page dans R
+tabItem(tabName = "exercice_b",  #Nom de l'objet de la page dans R
               
 #--- Titre et mise en contexte
  fluidRow(
  #Définir le titre de la première section
  titlePanel("Exercice B: Des bactéries aux baleines : croissance sans limite (Modélisation de la croissance exponentielle)"),
  #Taille du texte, justifier et ajouter de l'espace en dessous
- style = "text-align: justify; font-size: 16px; margin-bottom: 40px;", 
+ style = "text-align: justify; font-size: 16px; margin-bottom: 20px;", 
   box(width = 12, #Définir la taille de l'a boîte pour l'encadré pour le texte
  #Ajouter la mise en contexte
-    p("Dans les prochains exercices, vous allez explorer la dynamique de populations à croissance exponentielle en utilisant un code R de façon interactive à l'aide d'un Shiny App. Tout d’abord, considérons une population de bactéries qui commence avec un seul individu. Cet individu se reproduit de façon asexuée pour produire deux organismes après une période de 20 minutes. Ces deux individus peuvent, après une nouvelle période (unité de temps ou « time step ») de 20 minutes, se reproduire à nouveau, et aboutir à un total de 4 bactéries. Ce processus continue de telle manière qu’après chaque reproduction, le nombre de bactéries double (un évènement de reproduction ne donne pas 2 individus de plus mais double le nombre d’individus vivants à l’étape précédente)."),
-    p(uiOutput("bacteria")),
+    p("Dans les prochains exercices, vous allez explorer la dynamique de populations à croissance exponentielle en utilisant un code R de façon interactive à l'aide d'un Shiny App. Tout d’abord, considérons une population de bactéries qui commence avec un seul individu. Cet individu se reproduit de façon asexuée pour produire deux organismes après une période de 20 minutes. Ces deux individus peuvent, après une nouvelle période (unité de temps ou « time step ») de 20 minutes, se reproduire à nouveau, et aboutir à un total de 4 bactéries. Ce processus continue de telle manière qu’après chaque reproduction, le nombre de bactéries double (un évènement de reproduction ne donne pas 2 individus de plus mais double le nombre d’individus vivants à l’étape précédente)."))
+ ),
+
+ #Ajouter image de bactéries
+ fluidRow(
+   style = "text-align: center; font-size: 16px; margin-bottom: 20px;",
+   tags$figure(
+     class = "centerFigure",
+     tags$img(
+       src = "bacteria.jpg",
+       width = 200)
+   )
+ ),
+ 
+fluidRow(
+  style = "text-align: justify; font-size: 16px; margin-bottom: 20px;",
+  box(width = 12,
     p(HTML("<b>Questions</b>")),
+    #Ajouter liste ordonnée avec les questions
     p(HTML("<ol>
          <li>Combien de bactéries sont produites à partir d’un seul individu, après 10 événements de reproduction?</li>
          <li>En gardant en mémoire que chaque unité de temps (i.e. reproduction) dure 20 minutes, combien de minutes (ou heures) cela va-t-il prendre pour produire 10 000 bactéries?</li>
@@ -243,10 +302,11 @@ tabItem(tabName = "exercise_b",  #Nom de l'objet de la page dans R
               )
             ),
       
+
 #------------------#
 #### Exercice C ####
 #------------------#
-tabItem(tabName = "exercise_c",
+tabItem(tabName = "exercice_c",
   fluidRow(
   #Définir le titre de section
   titlePanel("Exercice C: L’influence des facteurs de mortalité"),
@@ -254,9 +314,24 @@ tabItem(tabName = "exercise_c",
    box(width = 12,
    #Ajouter la mise en contexte
     p("Dans l’exemple précédent, vous avez seulement pris en compte la natalité comme facteur affectant la croissance de la population, et vous avez ignoré la mortalité et les migrations. Maintenant, vous allez ajouter les effets de la mortalité, Cependant, vous allez toujours ignorer les effets de la migration dans cet exercice."),
-    p("Imaginez une population de 5000 tamias vivant dans une forêt donnée. Dans des conditions optimales, ces petits mammifères vont se reproduire rapidement, de telle manière que dans un intervalle de 1 an, chaque groupe de 10 tamias donne 4 nouveaux individus. La taux de natalité est égal à 4/10=0.40 nouveaux nés par individu par an. Cependant, durant cette même période de temps, 1 individu de cette population sur 10 meurt. Ainsi, le taux de survie est de 9/10=0.90. Le taux de mortalité est égal à 1 moins le taux de survie, qui vaut donc 0.1 dans cette exemple. Le taux de croissance de cette population sera défini comme suit (supposant qu’il n’y a pas de migration):"),
-    p(uiOutput("tamia")),
+    p("Imaginez une population de 5000 tamias vivant dans une forêt donnée. Dans des conditions optimales, ces petits mammifères vont se reproduire rapidement, de telle manière que dans un intervalle de 1 an, chaque groupe de 10 tamias donne 4 nouveaux individus. La taux de natalité est égal à 4/10=0.40 nouveaux nés par individu par an. Cependant, durant cette même période de temps, 1 individu de cette population sur 10 meurt. Ainsi, le taux de survie est de 9/10=0.90. Le taux de mortalité est égal à 1 moins le taux de survie, qui vaut donc 0.1 dans cette exemple. Le taux de croissance de cette population sera défini comme suit (supposant qu’il n’y a pas de migration):"))
+  ),
+  
+  
+  #Ajouter image de bactéries
+  fluidRow(
+    style = "text-align: center; font-size: 16px; margin-bottom: 20px;",
+    tags$figure(
+      class = "centerFigure",
+      tags$img(
+        src = "tamia.jpg",
+        width = 400)
+    )
+  ),
    
+  fluidRow(
+    style = "text-align: justify; font-size: 16px; margin-bottom: 10px;", 
+    box(width = 12,
    p(HTML("<b>Questions</b>")),
    p(HTML("<ol>
          <li>Quel était le taux de natalité pour la population de bactéries (simulation précédente) et quel est le taux de natalité pour la population de tamias?</li>
@@ -269,23 +344,19 @@ tabItem(tabName = "exercise_c",
        "))
                 )
               ),
+  
  fluidRow(
- style = "font-size: 24px; margin-bottom: 10px;",
+ style = "font-size: 20px; margin-bottom: 10px;",
   box(width = 12,
    p(HTML("<b>R = f + s</b> ")),
+   p(HTML("<i>Taux de croissance (growth rate)= Taux de natalité (fecundity/birth rate) + Taux de survie (survival rate)</i>")),
                 )
               ),
- fluidRow(
- style = "font-size: 16px; margin-bottom: 10px;",
-  box(width = 12,
-   p(HTML("<b>Taux de croissance (growth rate)= Taux de natalité (fecundity/birth rate) + Taux de survie (survival rate)</b>"))
-                )
-              ),
- 
+
  fluidRow(
  style = "text-align: justify; font-size: 16px; margin-bottom: 40px;",
   box(width = 12,
-  p("Souvenez-vous que pour obtenir la prochaine taille de la population, il faut multiplier la taille actuelle par le taux de croissance.")
+  p("*Souvenez-vous que pour obtenir la prochaine taille de la population, il faut multiplier la taille actuelle par le taux de croissance.")
                 )
               ),
  
@@ -298,7 +369,7 @@ tabItem(tabName = "exercise_c",
 #--- Boîte pour saisir taux de croissance, taille pop init et pas de temps
     box(width = 4,
       numericInput("taux_survie_C", "Taux de survie (s)", value= 1),
-      numericInput("taux_fecondite_C", "Taux de fécondité (s)", value= 1),
+      numericInput("taux_fecondite_C", "Taux de fécondité (f)", value= 1),
       numericInput("population_initiale_C", "Taille de population initiale (N)", value = 1),
       numericInput("time_steps_C", "Temps (t)", value = 1)
                 )
@@ -317,7 +388,7 @@ tabItem(tabName = "exercise_c",
 #------------------#
 #### Exercice D ####
 #------------------#
-tabItem(tabName = "exercise_d",
+tabItem(tabName = "exercice_d",
   fluidRow(
   #Définir le titre de section
   titlePanel("Exercice D: Modélisation du rétablissement des baleines bleues"),
@@ -347,7 +418,7 @@ tabItem(tabName = "exercise_d",
     #--- Boîte pour saisir taux de croissance, taille pop init et pas de temps
      box(width = 4,
       numericInput("taux_survie_D", "Taux de survie (s)", value= 1),
-      numericInput("taux_fecondite_D", "Taux de fécondité (s)", value= 1),
+      numericInput("taux_fecondite_D", "Taux de fécondité (f)", value= 1),
       numericInput("population_initiale_D", "Taille de population initiale (N)", value = 1),
       numericInput("time_steps_D", "Temps (t)", value = 1)
                 )

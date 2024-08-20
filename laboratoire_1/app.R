@@ -1,16 +1,13 @@
-# Shiny App: Laboratoire 1
+# Shiny App: Laboratoire 1 - Croissance de population
 # Auteur: Louis Moisan
-# Date: 18 Janvier 2024
+# Création: 18 Janvier 2024
+# Mise à jour: 19 Août 2024
 
-library(rsconnect)
-deployApp()
-
-#Faire rouler le script pour l'interface de l'utilisateur
+# 1. Faire rouler le script pour l'interface de l'utilisateur
 source("ui.R")
 
-#Faire rouler le script pour les graphiques et tableaux dynamiques
+# 2. Faire rouler le script pour les graphiques et tableaux dynamiques
 source("server.R")
 
-# Run the application
+# 3. Faire rouler l'application
 shinyApp(ui = ui, server = server)
-

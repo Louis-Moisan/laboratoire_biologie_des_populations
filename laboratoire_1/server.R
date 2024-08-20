@@ -1,12 +1,16 @@
-library(dplyr)
-library(kableExtra)
-library(rhandsontable)
+#--- Activer les librairies nécessaires
+library(dplyr) #manipulation de données
+library(kableExtra) #mise en forme tableau
+library(rhandsontable) #mise en forme tableau
 
+#Fonction utilisée pour transformer le input en un output donné. Par exemple un jeu de donnée excel en un tableau ou un graphique
 server <- function(input, output) {
 
+  
 #-------------------------#
-#### General functions ####
+#### Fonction générale ####
 #-------------------------#
+  #--- Créer un graphique de la trajectoire de population (Taille de la population en fonction du temps)
 graph_trajectoire_population <- function(data){
   renderPlotly({
     plot_ly(data(), x = ~Time, y = ~Population, type = 'scatter', mode = 'lines+markers') %>%
@@ -15,17 +19,7 @@ graph_trajectoire_population <- function(data){
              yaxis = list(title = "Taille de la population (N)"))
   })
 }
-  
-  
-#--------------------#
-#### Exercice 1.1 ####
-#--------------------#
-#add image whale
-output$whale <- renderUI({
-  div(style = "text-align: center;",
-  tags$img(src = 'whale.jpg', height = '200px'))
-})
-  
+
 
 #--------------------#
 #### Exercice 1.2 ####
@@ -105,64 +99,41 @@ output$plot_sub_table_1_3 <- renderPlot({
 
 
 #--- Table 1.4
-# Initial empty data frame with specified column names
-data_1_4 <- data.frame(Annee= as.integer(c(1975,1985, 1995)), Taille_population_milliards= c(3.97, 4.84, 5.75),
-Taux_de_croissance_annuel_R= rep(0, times= 3),
-Nombre_individus_en_plus_chaque_annee= rep(0, times= 3))
+table_1_4_df <- data.frame(
+  `Année` = c(1975, 1985, 1995),
+  `Taille de la population (milliards)` = c(3.97, 4.84, 5.75),
+  `Taux de croissance annuel (R)` = c("", "",""),
+  `Nombre d’individus en plus chaque année` = c("", "", ""),
+  # Avoid converting strings to factors
+  check.names = FALSE)
 
-# Reactive value to store and update the data
-reactiveData_1_4 <- reactiveVal(data_1_4)
-
-# Render the rhandsontable
-output$editableTable_1_4 <- renderRHandsontable({
-  rhandsontable(reactiveData_1_4(), rowHeaders = NULL) %>% 
-    hot_col("Taille_population_milliards", format = "0.00") %>% 
-    hot_col("Taux_de_croissance_annuel_R", format = "0.00000") %>% 
-    hot_col("Nombre_individus_en_plus_chaque_annee", format = "0.00")
-})
-
-# Update the data when the table is edited
-observeEvent(input$editableTable_1_4, {
-  df <- hot_to_r(input$editableTable_1_4)
-  if (!is.null(df)) {
-    reactiveData_1_4(df)
-  }
-})
+output$table_1_4 <- function() {
+  table_1_4_df %>% 
+    knitr::kable("html") %>%
+    kable_styling("striped", full_width = F)
+}
 
 
 #--------------------#
 #### Exercice 1.3 ####
 #--------------------#
 #--- Table 1.5
-# Initial empty data frame with specified column names
-data_1_5 <- data.frame(
-  Annee= as.integer(c(1995, 2005, 2015, 2025, 2035)),
-  Fecondite_f= c(0.0273, NA,NA,NA,NA),
-  Taux_de_croissance_annuel_R= c(NA,NA,NA,NA,1),
-  Taux_de_croissance_par_decennie_R10= c(NA,NA,NA,NA,1),
-  Population_au_debut_decade_milliards= c(5.75, NA,NA,NA,NA),
-  Population_fin_decade= rep(0, times= 5))
+table_1_5_df <- data.frame(
+  `Année` = c(1995, 2005, 2015, 2025, 2035),
+  `Fécondité (f)` = c(0.0273, "", "", "", ""),
+  `Taux de croissance annuel (R)` = c("", "", "", "", 1),
+  `Taux de croissance par décennie (R^10)` = c("", "", "", "", 1),
+  `Population au début de la décade (milliards)` = c(5.75 ,"", "", "", ""),
+  `Population à la fin de la décade (milliards)` = c("" ,"", "", "", ""),
+  # Avoid converting strings to factors
+  check.names = FALSE)
 
-# Reactive value to store and update the data
-reactiveData_1_5 <- reactiveVal(data_1_5)
+output$table_1_5 <- function() {
+  table_1_5_df %>% 
+    knitr::kable("html") %>%
+    kable_styling("striped", full_width = F)
+}
 
-# Render the rhandsontable
-output$editableTable_1_5 <- renderRHandsontable({
-  rhandsontable(reactiveData_1_5(), rowHeaders = NULL) %>% 
-    hot_col("Fecondite_f", format = "0.0000") %>% 
-    hot_col("Taux_de_croissance_annuel_R", format = "0.00000") %>% 
-    hot_col("Taux_de_croissance_par_decennie_R10", format ="0.00000") %>% 
-    hot_col("Population_au_debut_decade_milliards", format ="0.00") %>% 
-    hot_col("Population_fin_decade", format ="0.00")
-})
-
-# Update the data when the table is edited
-observeEvent(input$editableTable_1_5, {
-  df <- hot_to_r(input$editableTable_1_5)
-  if (!is.null(df)) {
-    reactiveData_1_5(df)
-  }
-})
 
 #------------------#
 #### Exercice B ####
@@ -182,12 +153,6 @@ observeEvent(input$editableTable_1_5, {
     population_data_B()
   })
   
-  #---image
-  #add image whale
-  output$bacteria <- renderUI({
-    div(style = "text-align: center;",
-        tags$img(src = 'bacteria.jpg', height = '200px'))
-  })
   
   #------------------#
   #### Exercice C ####
@@ -207,12 +172,6 @@ observeEvent(input$editableTable_1_5, {
     population_data_C()
   })
   
-  #---image
-  #add image whale
-  output$tamia <- renderUI({
-    div(style = "text-align: center;",
-        tags$img(src = 'tamia.jpg', height = '200px'))
-  })
   
   #------------------#
   #### Exercice D ####
