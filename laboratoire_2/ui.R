@@ -279,9 +279,9 @@ tabItem(tabName = "exercice_2_3",
     box(width=12,
         p(HTML("<b>Étape 4:</b> Copiez et collez les valeurs des columnes «Taille de la population (Nc)» et «Probabilité de décliner à Nc» dans le tableau ci-dessous pour obtenir la courbe de risque de déclin.")),
         #Saisie des données dans le tableau
-        column(width=4,  rHandsontableOutput("editableTable_2_3_4")),
+        column(width=6,  rHandsontableOutput("editableTable_2_3_4")),
         #Visualisation des données en graphique
-        column(width=7,  plotOutput("plot_2_3_4"))
+        column(width=6,  plotOutput("plot_2_3_4"))
     )
   )
 ),#tab item 2.3
