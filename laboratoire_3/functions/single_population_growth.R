@@ -53,7 +53,7 @@ output_df <- data.frame()
       #et pour chaque pas de temps au sein d'une simulation
       for (t in time_steps){
         
-        #si le premier pas de temps est 0, assignée la taille de population initiale comme taille de population
+        #si le premier pas de temps est 0, assigner la taille de population initiale comme taille de population
         if (t == 0) {
          population_size <- initial_abundance
           
@@ -79,14 +79,14 @@ output_df <- data.frame()
 #---B) COMPÉTITION PAR EXPLOITATION
   if(density_dependence== "scramble"){
   #Ajuster le taux de croissance au pas de temps donné selon le modèle de Ricker 
-  R_adjusted <- (fecundity+survival)^(1-(population_size/carrying_capacity))
+  R_adjusted <- Rmax^(1-(population_size/carrying_capacity))
   }
               
 #---C) COMPÉTITION PAR INTERFÉRENCE
   if(density_dependence== "contest"){
   #Ajuster le taux de croissance au pas de temps donné selon le modèle de Beverton-Holt
-  R_adjusted <- ((fecundity+survival)* carrying_capacity)/
-  ((fecundity+survival)* population_size - population_size + carrying_capacity)
+  R_adjusted <- (Rmax* carrying_capacity)/
+  (Rmax* population_size - population_size + carrying_capacity)
   }
               
 #---D) COMPÉTITION AVEC PLAFOND
