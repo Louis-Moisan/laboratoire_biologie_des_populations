@@ -233,7 +233,7 @@ tabItem(tabName = "exercice_2_3",
   fluidRow(
     style = "text-align: justify; font-size: 16px; margin-bottom: 20px;",
       box(width=12,
-          p(HTML("<b>Étape 1:</b> Au cours de la prochaine étape nous allons générer des trajectoires uniques. Pour vous y préparer, entrez les valeurs des paramètres ci-dessous. Notez ensuite dans votre tableau Excel la plus petite valeur que la trajectoire de population a atteint entre les unités de temps 1 et 5 de cette unique répétition. (Note: Ignorez l’unité de temps 0 pour laquelle l’abondance est toujours 31).
+          p(HTML("<b>Étape 1:</b> Au cours de la prochaine étape nous allons générer des trajectoires uniques. Pour vous y préparer, entrez les valeurs des paramètres ci-dessous. Notez ensuite dans votre tableau Excel la plus petite valeur que la trajectoire de population a atteint entre les unités de temps 1 et 5 de cette unique répétition.
                   <ol>
                   <li>Nombre d'années= 5 ans</li>
                   <li>Taille de population initiale= 31 individus</li>
@@ -306,8 +306,8 @@ tabItem(tabName = "exercice_2_4",
                   <ol>
                   <li>Nombre d'années= 12 ans</li>
                   <li>Taille de population initiale= 31 individus</li>
+                  <li>Taux de croissance= 1.148</li>
                   <li>Taux de survie= 0.921</li>
-                  <li>Taux de natalité= 0.227</li>
                   <li>Écart-type de R= 0.075</li>
                   <li>Stochasticité démographique= oui</li>
                   <li>Réplications= 100</li>
@@ -317,8 +317,8 @@ tabItem(tabName = "exercice_2_4",
           column(width=4,
                  numericInput("timeSteps_2_4_1", "Nombre d'années:", min = 1, max = 100, value = 1),
                  numericInput("initialAbundance_2_4_1", "Taille de population initiale:", min = 1, max = 1000, value = 1),
+                 numericInput("growth_rate_2_4_1", "Taux de croissance (R):", min = 0, max = 20, value = 1),
                  numericInput("survival_2_4_1", "Taux de survie (s):", min = 0, max = 1, value = 1),
-                 numericInput("fecundity_2_4_1", "Fécondité (f):", min = 0, max = 20, value = 1),
                  numericInput("sd_R_2_4_1", "Écart-type de R (stochasticité environnementale):", min = 0, max = 20, value = 0),
                  radioButtons("stochasticite_2_4_1", label = "Stochasticité démographique", choices = list("Oui" = TRUE, "Non" = FALSE), selected = FALSE),
                  numericInput("replicates_2_4_1", "Réplications:", min = 0, max = 1000, value = 1)
@@ -338,7 +338,7 @@ tabItem(tabName = "exercice_2_4",
     
     #---Étape 3
     box(width = 12,
-        p(HTML("<b>Étape 3:</b> Créez maintenant huit nouveaux modèles basés sur le modèle standard. Pour chaque modèle, augmentez ou diminuez un des quatre paramètres du modèle de 10% (voir ci-dessous) et gardez les autres trois paramètres similaires au modèle standard. Pour chaque modèle, notez les valeurs utilisées pour chaque paramètre ainsi que la probabilité d’atteindre au moins 150 individus dans les 12 prochaines années.")),
+        p(HTML("<b>Étape 3:</b> Créez maintenant huit nouveaux modèles basés sur le modèle standard. Pour chaque modèle, augmentez ou diminuez un des quatre paramètres du modèle de 10% (voir ci-dessous) et gardez les autres trois paramètres similaires au modèle standard. Pour chaque modèle, notez les valeurs utilisées pour chaque paramètre dans le tableau ci-dessous.")),
       p("*Notez qu’il y a des restrictions. Par exemple, le taux de survie (s) ne peut pas être inférieur à 0 ou supérieur à 1. Aussi, l’abondance initiale doit être un entier. Faites les ajustements ou les approximations nécessaires pour ces paramètres."),
       column(width=12,  rHandsontableOutput("editableTable_2_4_3")),
                 ),

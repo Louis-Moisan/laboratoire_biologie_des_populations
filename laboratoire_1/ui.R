@@ -127,13 +127,13 @@ fluidRow(
   style = "text-align: justify; font-size: 16px; margin-bottom: 40px;", 
     box(width = 12,
     #Ajouter la mise en contexte
-    p(HTML("<b>Étape 1</b>: Calculez le taux de croissance de la population humaine pour chaque intervalle de temps dans le tableau 1.3. Puisqu’il est important de convertir ces taux de croissance en taux de croissance annuels pour pouvoir les comparer les uns aux autres, notez que le nombre d’années est différent d’un intervalle de temps à un autre: 50 ans au début, 20 ans ensuite et 5 ans pour finir. Utilisez la méthode décrite à la section 1.4.1 (APE) pour calculer le taux de croissance annuel pour la période 1800 à 1850, 1850 à 1870, et ainsi de suite jusqu’à la période 1990 à 1995. <b>Copiez les valeurs du tableau 1.3 suivant dans collez dans Excel et complétez le tableau (dans le tableau, le premier taux de croissance est calculé en exemple). Si les valeurs se retrouvent toutes sur une même ligne, veuillez coller le tableau dans excel en utilisant les touches (ctrl + shift + v)  pour coller en tant que valeurs.</b>")),
+    p(HTML("<b>Étape 1</b>: Calculez le taux de croissance de la population humaine pour chaque intervalle de temps dans le tableau 1.3. Puisqu’il est important de convertir ces taux de croissance en taux de croissance annuels pour pouvoir les comparer les uns aux autres, notez que le nombre d’années est différent d’un intervalle de temps à un autre: 50 ans au début, 20 ans ensuite et 5 ans pour finir. Utilisez la méthode décrite à la section 1.4.1 (APE) pour calculer le taux de croissance annuel pour la période 1800 à 1850, 1850 à 1870, et ainsi de suite jusqu’à la période 1990 à 1995. <b>Copiez le tableau 1.3 ci-dessous et collez-le dans Excel en utilisant les touches (ctrl + shift + v)  pour coller en tant que valeurs afin de le compléter. Dans le tableau, le premier taux de croissance est calculé en exemple.</b>")),
     #Mention particulière en italique
     p(HTML("<i>*ASTUCE: Pour élever un nombre à une puissance, la fonction «excel» est la suivante:</i>")),
     p(HTML("<i>=puissance(nombre; puissance)</i>")),
     p("ou"),
     p(HTML("<i>=POWER(nombre; puissance)</i>")),
-    p(HTML("<i>*Selon votre version d'Excel vérifier si les chiffres sont considérés avec des «.» ou des «,». Vous pouvez les changer rapidement habituellement avec ctrl + h</i>"))
+    p(HTML("<i>*Si vous effectuez une opération Excel et que vous obtenez #VALEUR: selon votre version d'Excel vérifier si les chiffres sont considérés avec des «.» ou des «,». Vous pouvez les changer rapidement habituellement avec ctrl + h («Find and Replace» ou «Chercher et Remplacer»).</i>"))
        )
       ),
 
@@ -149,7 +149,7 @@ fluidRow(
 fluidRow(
   style = "text-align: justify; font-size: 16px; margin-bottom: 40px;", 
   box(width = 12,
-      p(HTML("<b>Étape 2</b>: Tracez le graphique du taux de croissance annuel en fonction de l’année et commentez la croissance de la population humaine au cours des 2 derniers siècles. <b>Vous pouvez simplement copier et coller vos valeurs calculées dans Excel dans la colonne taux de croissance annuel pour obtenir le graphique.</b>"))
+      p(HTML("<b>Étape 2</b>: Tracez le graphique du taux de croissance annuel en fonction de l’année et commentez la croissance de la population humaine au cours des 2 derniers siècles. <b>Vous pouvez simplement copier (ctrl+c) et coller (ctrl+v) vos valeurs calculées dans Excel dans la colonne taux de croissance annuel pour obtenir le graphique.</b>"))
       )
     ),
 
@@ -167,7 +167,7 @@ fluidRow(
   style = "text-align: justify; font-size: 16px; margin-bottom: 40px;", 
   box(width = 12,
       p(HTML("<b>Étape 3</b>: Il est important de connaître la différence entre croissance relative et absolue. En effet, même si le taux de croissance annuel (une mesure de croissance relative) décline, le nombre d’individus ajoutés à la population chaque année (une mesure de croissance absolue) peut augmenter.<b> Le nombre d’individus ajoutés à la population dans une année est égal à N x (R-1)</b>, où N est la taille de la population et R est le taux de croissance annuel. Par exemple, en 1850 on a 1.13 milliard x 0.00434 = 4.9 million d’individus qui ont été ajoutés à la population. <i>(De manière stricte, ce calcul n’est pas correct puisque les deux nombres utilisés réfèrent à des temps différents: 1.00434 est la croissance moyenne de 1800 à 1850 alors que 1.13 milliard est la taille de la population en 1850. Cependant, pour cet exercice, on considérera que c’est une approximation correcte)</i>.")),
-        p("Calculez le nombre d’individus ajoutés à la population humaine chaque année pour 1975, 1985 et 1995 en copiant et collant le tableau 1.4 ci-dessous dans Excel. Comparez le changement du taux de croissance annuel avec l’augmentation absolue de la taille de la population par année.")
+        p("Calculez le nombre d’individus ajoutés à la population humaine chaque année pour 1975, 1985 et 1995 en copiant le tableau 1.4 ci-dessous et en le collant dans Excel en utilisant les touches (ctrl + shift + v) afin de le compléter. Comparez le changement du taux de croissance annuel avec l’augmentation absolue de la taille de la population par année.")
       )
     ),
 
@@ -212,8 +212,8 @@ style = "text-align: justify; font-size: 16px; margin-bottom: 40px;",
 
 #--- Ajouter le texte en différents paragraphes
   box(width = 12, 
-   p("Dans cet exercice vous allez examiner un scénario plutôt optimiste de ralentissement et de stabilisation de la population humaine. Spécifiquement, vous allez calculer la taille de la population en 2035, en supposant que le taux de croissance ait atteint d’ici là 1.00 (pas de croissance). Supposez que (i) le taux de fécondité en 1995 est de 0.0273, (ii) le taux de survie ne changera pas dans le futur et que (iii) dans les 40 années suivant 1995, la fécondité va décroître de sorte que le taux de croissance annuel en 2035 atteigne R(2035) = 1.0. Pour effectuez les calculs, copiez et collez les valeurs du tableau 1.5 dans excel "),
-   p(HTML("<b>Pour effectuez vos calculs, copiez et collez les valeurs du tableau 1.5 dans Excel. Si les valeurs se retrouvent toutes sur une même ligne, veuillez coller le tableau dans excel en utilisant les touches (ctrl + shift + v) pour coller en tant que valeurs.</b>")),
+   p("Dans cet exercice vous allez examiner un scénario plutôt optimiste de ralentissement et de stabilisation de la population humaine. Spécifiquement, vous allez calculer la taille de la population en 2035, en supposant que le taux de croissance ait atteint d’ici là 1.00 (pas de croissance). Supposez que (i) le taux de fécondité en 1995 est de 0.0273, (ii) le taux de survie ne changera pas dans le futur et que (iii) dans les 40 années suivant 1995, la fécondité va décroître de sorte que le taux de croissance annuel en 2035 atteigne R(2035) = 1.0."),
+   p(HTML("<b>Pour effectuez les calculs, copiez le tableau 1.5 ci-dessous et collez-le dans Excel en utilisant les touches (ctrl + shift + v)  pour coller en tant que valeurs afin de le compléter.</b>")),
    p(HTML("<b>Étape 1</b>: En utilisant le R (1995) obtenu à l’exercice précédent, calculez le taux de survie annuel pour 1995 et estimez la décroissance annuelle en fécondité nécessaire pour atteindre R(2035) = 1.0. Supposez que la décroissance est linéaire, c’est à dire que la fécondité décroît d’une quantité équivalente chaque année.")),
    p(HTML("<b>Étape 2</b>: Calculez la fécondité et le taux de croissance annuel pour les années 2005, 2015, 2025 et 2035 et notez-les dans le tableau. Notez que le taux de survie est stable.")),
    p(HTML("<b>Étape 3</b>: Calculez les taux de croissance sur 10 ans pour les périodes 1995-2005, 2005-2015, 2015-2025, et 2025-2035. Notez ces résultats dans le tableau (entrez le taux de croissance pour 10 ans pour la période 1995-2005 dans la ligne pour 1995, et ainsi de suite).")),

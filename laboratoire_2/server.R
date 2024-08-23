@@ -55,6 +55,7 @@ df_2_2_1 <- reactive(
     initial_abundance=input$initialAbundance_2_2_1 , #Initial population abundance
     survival=input$survival_2_2_1, #Average survival rate
     fecundity=input$fecundity_2_2_1, #Average fecundity rate
+    growth_rate= input$survival_2_2_1+input$fecundity_2_2_1,
     standard_deviation_R=0, #Equivalent of environmental stochasticity
     demographic_stochasticity= FALSE, #TRUE or FALSE
     number_replicates=1)
@@ -87,6 +88,7 @@ output$table_2_2_1 <- function() {
     initial_abundance=input$initialAbundance_2_2_1 , #Initial population abundance
     survival=input$survival_2_2_1, #Average survival rate
     fecundity=input$fecundity_2_2_1, #Average fecundity rate
+    growth_rate= input$survival_2_2_1+input$fecundity_2_2_1,
     standard_deviation_R=input$sd_R_2_2_3, #Equivalent of environmental stochasticity
     demographic_stochasticity= input$stochasticite_2_2_3, #TRUE or FALSE
     number_replicates=input$replicates_2_2_3)
@@ -178,6 +180,7 @@ df_2_3_1 <- reactive(
     initial_abundance=input$initialAbundance_2_3_1 , #Initial population abundance
     survival=input$survival_2_3_1, #Average survival rate
     fecundity=input$fecundity_2_3_1, #Average fecundity rate
+    growth_rate= input$survival_2_3_1+input$fecundity_2_3_1,
     standard_deviation_R=input$sd_R_2_3_1, #Equivalent of environmental stochasticity
     demographic_stochasticity= input$stochasticite_2_3_1, #TRUE or FALSE
     number_replicates=input$replicates_2_3_1)
@@ -272,7 +275,8 @@ df_2_4_1 <- reactive(
     duration=input$timeSteps_2_4_1, #Number of time step
     initial_abundance=input$initialAbundance_2_4_1 , #Initial population abundance
     survival=input$survival_2_4_1, #Average survival rate
-    fecundity=input$fecundity_2_4_1, #Average fecundity rate
+    fecundity=input$growth_rate_2_4_1-input$survival_2_4_1 , #Average fecundity rate
+    growth_rate= input$growth_rate_2_4_1,
     standard_deviation_R=input$sd_R_2_4_1, #Equivalent of environmental stochasticity
     demographic_stochasticity= input$stochasticite_2_4_1, #TRUE or FALSE
     number_replicates=input$replicates_2_4_1)

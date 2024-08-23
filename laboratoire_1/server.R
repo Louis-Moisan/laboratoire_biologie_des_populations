@@ -52,11 +52,11 @@ observeEvent(input$Timeend, {
 #--- Table 1.3
 table_1_3_df <- data.frame(
     `Année` = c("t", c(1800, 1850, 1870, 1890, 1910, 1930, 1950, 1970, 1975, 1980, 1985, 1990, 1995)),
-    `Population (milliards)` = c("N(t)", c(0.91, 1.13, 1.30, 1.49, 1.70, 2.02, 2.51, 3.62, 3.97, 4.41, 4.84, 5.29, 5.75)),
+    `Population (milliards)` = c("N(t)", c("0,91", "1,13", "1,30", "1,49", "1,70", "2,02", "2,51", "3,62", "3,97", "4,41", "4,84", "5,29", "5,75")),
     `Intervalle de temps` = c("T","-",c(50,20,20), c(rep("", times= 9))),
-    `Population au recensement précédent` = c("N(t-T)","-" ,c(0.91, 1.13, 1.30, 1.49, 1.70, 2.02, 2.51, 3.62, 3.97, 4.41, 4.84, 5.29)),
-    `Taux de croissance en T années` = c("N(t)/N(t-T)","-",1.24176, rep("", times=11)),
-    `Taux de croissance annuel (R)` = c("[N(t)/N(t-T)]^(1/T)", "-", 1.00434, rep("", times=11)),
+    `Population au recensement précédent` = c("N(t-T)","-" ,c("0,91", "1,13", "1,30", "1,49", "1,70", "2,02", "2,51", "3,62", "3,97", "4,41", "4,84", "5,29")),
+    `Taux de croissance en T années` = c("N(t)/N(t-T)","-","1,24176", rep("", times=11)),
+    `Taux de croissance annuel (R)` = c("[N(t)/N(t-T)]^(1/T)", "-", "1,00434", rep("", times=11)),
     # Avoid converting strings to factors
     check.names = FALSE)
 
@@ -68,7 +68,7 @@ output$table_1_3 <- function() {
 
 #--- Plot and table 
 # Initial empty data frame with specified column names
-data_1_3 <- data.frame(Annee= as.integer(c(1850, 1870, 1890, 1910, 1930, 1950, 1970, 1975, 1980, 1985, 1990, 1995)), Taux_croissance_annuel=  round(c(1.00434, rep(NA, times= 11)), digits = 5), check.names = FALSE)
+data_1_3 <- data.frame(Annee= as.integer(c(1850, 1870, 1890, 1910, 1930, 1950, 1970, 1975, 1980, 1985, 1990, 1995)), Taux_croissance_annuel=  round(c(1.00434 ,rep(NA, times= 11)), digits = 5), check.names = FALSE)
 
 # Reactive value to store and update the data
 reactiveData_1_3 <- reactiveVal(data_1_3)
@@ -101,7 +101,7 @@ output$plot_sub_table_1_3 <- renderPlot({
 #--- Table 1.4
 table_1_4_df <- data.frame(
   `Année` = c(1975, 1985, 1995),
-  `Taille de la population (milliards)` = c(3.97, 4.84, 5.75),
+  `Taille de la population (milliards)` = c("3,97", "4,84", "5,75"),
   `Taux de croissance annuel (R)` = c("", "",""),
   `Nombre d’individus en plus chaque année` = c("", "", ""),
   # Avoid converting strings to factors
@@ -120,10 +120,10 @@ output$table_1_4 <- function() {
 #--- Table 1.5
 table_1_5_df <- data.frame(
   `Année` = c(1995, 2005, 2015, 2025, 2035),
-  `Fécondité (f)` = c(0.0273, "", "", "", ""),
+  `Fécondité (f)` = c("0,0273", "", "", "", ""),
   `Taux de croissance annuel (R)` = c("", "", "", "", 1),
   `Taux de croissance par décennie (R^10)` = c("", "", "", "", 1),
-  `Population au début de la décade (milliards)` = c(5.75 ,"", "", "", ""),
+  `Population au début de la décade (milliards)` = c("5,75" ,"", "", "", ""),
   `Population à la fin de la décade (milliards)` = c("" ,"", "", "", ""),
   # Avoid converting strings to factors
   check.names = FALSE)

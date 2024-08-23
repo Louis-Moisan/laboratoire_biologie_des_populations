@@ -124,10 +124,8 @@ output_df <- data.frame()
     #Si le taux de survie ajusté est plus petit que 0 (négatif), le maintenir à 0 et s'il est plus grand que 1, le maintenir à 1.
     survival_annual <- ifelse(survival_annual < 0, 0, ifelse(survival_annual > 1, 1, survival_annual))
     
-    #Faire la même chose pour le taux de fécondité
-    fecundity_annual<- fecundity*coef_environmental_stochas
-    #Toutefois, ici le taux de fécondité peut être plus grand que 1
-    fecundity_annual <- ifelse(fecundity_annual < 0, 0, fecundity_annual)
+    #Calculer taux fécondité selon taux de croissance et taux de survie
+    fecundity_annual<- (R_annual-survival_annual)
     
   #Effectuer un tirage binomiale (0 ou 1) pour chaque individu pour déterminer réellement combien d'individus ont survécus
   survivors <- rbinom(population_size, 1, survival_annual)
