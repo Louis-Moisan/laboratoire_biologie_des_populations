@@ -4,7 +4,7 @@ username: lmoisan
 account: lmoisan
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
-appId: 12506757
-bundleId: 9018722
+appId: 12525928
+bundleId: 9028036
 url: https://lmoisan.shinyapps.io/laboratoire_1/
 version: 1

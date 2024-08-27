@@ -206,7 +206,7 @@ tabItem(tabName = "exercice_3_4",
     style = "text-align: justify; font-size: 16px; margin-bottom: 10px;",
       box(width = 12,
         p(HTML("Pour cet exercice, vous aurez à utilisez la courbe de densité dépendance illustrée à la figure 3.16 du livre Applied Population Ecology (ci-bas) pour tracer la trajectoire de la population sur 10 unités de temps. Vous pouvez vous référer à l’exemple présenté dans figure 3.5  du livre Applied Population Ecology basé sur une courbe de recrutement différente.")),
-        p(HTML("* Les deux premières unités de temps vous sont déjà indiquées sur la figure 3.16 et <b>des explications supplémentaires sont disponibles sur moodle au besoin</b>.")),
+        p(HTML("* Les deux premières unités de temps vous sont déjà indiquées sur la figure 3.16 et <b>des explications supplémentaires sont disponibles sur moodle (.pdf) au besoin</b>.")),
         tags$figure(
           class = "centerFigure",
           tags$img(

@@ -11,3 +11,4 @@ source("server.R")
 
 # 3. Faire rouler l'application
 shinyApp(ui = ui, server = server)
+

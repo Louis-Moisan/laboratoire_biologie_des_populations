@@ -167,7 +167,7 @@ output$plot_3_4_2 <- renderPlot({
 table_3_5_1_df <- data.frame(
   `Taille de population au début de l’année` = c(2000, 4000, 6000, 8000, 10000, 12000,14000),
   x= rep("x", times= 7),
-  `Taux de survie naturelle`= rep(0.6, times= 7),
+  `Taux de survie naturelle`= rep("0,6", times= 7),
   `=`= rep("=", times= 7),
   `Nombre de survivants`= c("", "", "", "", 6000, "", ""),
   `-`= rep("-", times= 7),
@@ -177,7 +177,7 @@ table_3_5_1_df <- data.frame(
   `÷`= rep("÷", times= 7),
   `Taille de population au début de l’année`= c(2000,4000, 6000, 8000, 10000, 12000, 14000),
   `=`= rep("=", times=7),
-  `Taux de survie général`= c("", "", "", "", 0.5, "", ""),
+  `Taux de survie général`= c("", "", "", "", "0,5", "", ""),
   # Avoid converting strings to factors
   check.names = FALSE)
 
